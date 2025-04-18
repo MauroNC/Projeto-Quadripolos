@@ -1,0 +1,42 @@
+import unittest
+from src.calculations import matriz_linha, matriz_transformador, matriz_carga, cascata, paralelo
+
+class TestCalculations(unittest.TestCase):
+
+    def test_matriz_linha(self):
+        R_km = 0.172
+        L_km = 2.18e-3
+        C_km = 0.0136e-6
+        comprimento = 80
+        T = matriz_linha(R_km, L_km, C_km, comprimento)
+        self.assertEqual(T.shape, (2, 2))
+
+    def test_matriz_transformador(self):
+        R1 = 7.6e-3
+        X1 = 3.8e-3
+        Rm = 4320
+        Xm = 5050
+        a = 1
+        T = matriz_transformador(R1, X1, Rm, Xm, a)
+        self.assertEqual(T.shape, (2, 2))
+
+    def test_matriz_carga(self):
+        R = 790
+        L = 4.1
+        T = matriz_carga(R, L)
+        self.assertEqual(T.shape, (2, 2))
+
+    def test_cascata(self):
+        M1 = matriz_linha(0.172, 2.18e-3, 0.0136e-6, 80)
+        M2 = matriz_transformador(7.6e-3, 3.8e-3, 4320, 5050)
+        T = cascata(M1, M2)
+        self.assertEqual(T.shape, (2, 2))
+
+    def test_paralelo(self):
+        M1 = matriz_carga(790, 4.1)
+        M2 = matriz_carga(137.55, 0.75)
+        T = paralelo(M1, M2)
+        self.assertEqual(T.shape, (2, 2))
+
+if __name__ == '__main__':
+    unittest.main()

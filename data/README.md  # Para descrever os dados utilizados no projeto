@@ -1,0 +1,28 @@
+# Data Used in the Project
+
+This README file provides an overview of the data utilized in the Projeto de Análise de Sistemas por Quadripolos. The data includes parameters for transmission lines, transformers, and loads, which are essential for the analysis and calculations performed in the project.
+
+## Data Sources
+
+1. **Transmission Lines**: 
+   - Resistance per kilometer (R_km)
+   - Inductance per kilometer (L_km)
+   - Capacitance per kilometer (C_km)
+   - Lengths of the lines (in kilometers)
+
+2. **Transformers**:
+   - Resistance and reactance for the primary side (R1, X1)
+   - Magnetizing resistance and reactance (Rm, Xm)
+   - Transformation ratio (a)
+
+3. **Loads**:
+   - Resistance (R)
+   - Inductance (L)
+
+## Data Format
+
+The data is structured in dictionaries and arrays, allowing for easy access and manipulation during calculations. Each component's parameters are defined clearly to ensure accurate modeling of the electrical system.
+
+## Usage
+
+This data is utilized in the calculations and simulations within the Jupyter notebook located in the `notebooks` directory. Ensure that the parameters are correctly defined before running the analysis to achieve valid results.

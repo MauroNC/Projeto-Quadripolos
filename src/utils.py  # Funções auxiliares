@@ -1,0 +1,17 @@
+def calcular_resistencia_equivalente(resistores):
+    return sum(resistores)
+
+def calcular_capacitancia_equivalente(capacitores):
+    return 1 / sum(1 / c for c in capacitores)
+
+def calcular_indutancia_equivalente(indutores):
+    return sum(indutores)
+
+def converter_para_complexo(resistencia, reatancia):
+    return resistencia + 1j * reatancia
+
+def calcular_fator_potencia(potencia_ativa, potencia_aparente):
+    return potencia_ativa / potencia_aparente if potencia_aparente != 0 else 0
+
+def calcular_perdas_ativas(tensao, corrente):
+    return abs(tensao) * abs(corrente) * np.cos(np.angle(tensao) - np.angle(corrente))

@@ -1,0 +1,33 @@
+def matriz_linha(R_km, L_km, C_km, comprimento, omega):
+    R = R_km * comprimento
+    L = L_km * comprimento
+    C = C_km * comprimento
+    Z = R + 1j * omega * L
+    Y = 1j * omega * C / 2
+    return np.array([[1 + (Z * Y) / 2, Z], [Y * (1 + (Z * Y)) / 4, 1 + (Z * Y) / 2]], dtype=complex)
+
+def matriz_transformador(R1, X1, Rm, Xm, a=1):
+    Z1 = R1 + 1j * X1
+    Zm = Rm + 1j * Xm
+    return np.array([[a + Z1 / Zm, Z1 * a**2], [1 / Zm, 1 / a]], dtype=complex)
+
+def matriz_carga(R, L, omega):
+    Z = R + 1j * omega * L
+    return np.array([[1, Z], [0, 1]], dtype=complex)
+
+def cascata(*matrizes):
+    T = np.eye(2, dtype=complex)
+    for M in matrizes:
+        T = np.dot(T, M)
+    return T
+
+def paralelo(M1, M2):
+    A = (M1[0, 0] * M2[0, 1] + M2[0, 0] * M1[0, 1]) / (M1[0, 1] + M2[0, 1])
+    B = (M1[0, 1] * M2[0, 1]) / (M1[0, 1] + M2[0, 1])
+    C = M1[1, 0] + M2[1, 0] + ((M1[0, 0] - M2[0, 0]) * (M2[1, 1] - M1[1, 1])) / (M1[0, 1] + M2[0, 1])
+    D = (M2[0, 1] * M1[1, 1] + M1[0, 1] * M2[1, 1]) / (M1[0, 1] + M2[0, 1])
+    return np.array([[A, B], [C, D]], dtype=complex)
+
+def potencia_aparente(V, I):
+    S = V * np.conj(I)
+    return S.real, S.imag
